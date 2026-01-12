@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bizim Nakliyat | Evden Eve, Şehirler Arası Nakliyat</title>
     <meta name="description" content="Profesyonel evden eve nakliyat, şehirler arası taşıma, ofis taşıma, parça eşya taşıma ve asansörlü nakliyat hizmetleri.">
     <meta name="keywords" content="nakliyat, evden eve nakliyat, şehirler arası nakliyat, ofis taşıma, parça eşya taşıma, asansörlü taşıma">
@@ -16,48 +16,58 @@
         }
 
         :root {
-            --primary: #6a11cb;
-            --secondary: #2575fc;
-            --accent: #ff416c;
+            --primary: #2c5aa0;
+            --secondary: #1a3a6c;
+            --accent: #ff7e30;
             --light: #f8f9fa;
             --dark: #333;
             --gray: #6c757d;
+            --whatsapp: #25D366;
+            --whatsapp-dark: #128C7E;
         }
 
         body {
-            background-color: #f5f5f5;
+            background-color: #f0f5ff;
             color: var(--dark);
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
-        /* Dinamik Arka Plan */
-        .dynamic-bg {
+        /* Nakliyat temalı arka plan */
+        .main-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: linear-gradient(-45deg, #6a11cb, #2575fc, #ff416c, #ff4b2b);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: linear-gradient(135deg, #e6f0ff 0%, #f0f7ff 100%);
+            z-index: -2;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Nakliyat temalı desen */
+        .pattern-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(44, 90, 160, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 126, 48, 0.05) 0%, transparent 20%);
+            z-index: -1;
         }
 
         /* Header ve Navigasyon */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            width: 100%;
         }
 
         .navbar {
@@ -67,6 +77,7 @@
             padding: 1rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .logo {
@@ -137,91 +148,275 @@
             max-width: 1400px;
             margin: 0 auto;
             text-align: center;
-            color: white;
+            color: var(--dark);
+            width: 100%;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            color: var(--primary);
         }
 
         .hero p {
             font-size: 1.3rem;
             max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
+            margin: 0 auto 2.5rem;
+            color: var(--secondary);
         }
 
-        /* Hizmetler Bölümü */
+        /* Ana Butonlar */
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .hero-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .hero-btn:hover::before {
+            left: 100%;
+        }
+
+        .hero-btn.phone {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .hero-btn.whatsapp {
+            background: linear-gradient(to right, var(--whatsapp), var(--whatsapp-dark));
+            color: white;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-btn i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        /* Hizmetler Bölümü - 3D Kartlar */
         .services {
             padding: 5rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .section-title {
             text-align: center;
             margin-bottom: 3rem;
-            color: white;
+            color: var(--primary);
             font-size: 2.5rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            width: 100%;
         }
 
-        .service-card {
-            background: white;
+        /* 3D Kart Stilleri */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 400px;
+            border-radius: 15px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        .flip-card-front {
+            background-color: white;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        /* Kart Ön Yüzü */
+        .card-header {
+            position: relative;
+            height: 60%;
         }
 
         .service-img {
-            height: 250px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .detail-hint {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            color: var(--primary);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .detail-hint i {
             transition: transform 0.5s;
         }
 
-        .service-card:hover .service-img img {
-            transform: scale(1.05);
+        .flip-card:hover .detail-hint i {
+            transform: rotate(180deg);
         }
 
-        .service-info {
+        .card-content {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .service-info h3 {
+        .card-content h3 {
             margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .card-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Kart Arka Yüzü - Butonlar */
+        .flip-card-back h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 250px;
+            margin-top: 1rem;
+        }
+
+        .card-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .card-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .card-btn:hover::before {
+            left: 100%;
+        }
+
+        .card-btn.phone {
+            background: white;
             color: var(--primary);
         }
 
-        .service-info p {
-            color: var(--gray);
+        .card-btn.whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+
+        .card-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
         }
 
         /* Teklif Formu */
@@ -229,16 +424,18 @@
             padding: 4rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .quote-card {
             background: white;
             border-radius: 15px;
             padding: 2.5rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            width: 100%;
         }
 
         .quote-card h3 {
@@ -252,31 +449,13 @@
             color: var(--gray);
         }
 
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
-        }
-
         /* Footer */
         footer {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: var(--secondary);
             color: white;
             padding: 3rem 5% 1.5rem;
             margin-top: 4rem;
+            width: 100%;
         }
 
         .footer-content {
@@ -286,6 +465,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
+            width: 100%;
         }
 
         .footer-section h3 {
@@ -317,8 +497,8 @@
         /* Sabit İletişim Butonları */
         .fixed-contact {
             position: fixed;
-            bottom: 120px;
-            right: 30px;
+            bottom: 100px;
+            right: 20px;
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -342,11 +522,11 @@
         }
 
         .contact-btn.whatsapp {
-            background: linear-gradient(to right, #25D366, #128C7E);
+            background: linear-gradient(to right, var(--whatsapp), var(--whatsapp-dark));
         }
 
         .contact-btn.phone {
-            background: linear-gradient(to right, var(--accent), #ff4b2b);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
         }
 
         .contact-btn:hover {
@@ -376,7 +556,32 @@
             }
         }
 
+        /* Beyaz ışık efekti için */
+        .light-effect {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .hero-btn:hover .light-effect,
+        .contact-btn:hover .light-effect,
+        .card-btn:hover .light-effect {
+            opacity: 1;
+        }
+
         /* Mobil Uyumluluk */
+        @media (max-width: 1200px) {
+            .navbar, .hero, .services, .quote-section, .footer-content {
+                padding-left: 3%;
+                padding-right: 3%;
+            }
+        }
+
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 2.8rem;
@@ -385,9 +590,22 @@
             .section-title {
                 font-size: 2rem;
             }
+            
+            .hero-buttons {
+                max-width: 90%;
+            }
+            
+            .flip-card {
+                height: 380px;
+            }
         }
 
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
             .hamburger {
                 display: flex;
             }
@@ -404,6 +622,7 @@
                 box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
                 padding: 2rem 0;
                 border-radius: 0 0 15px 15px;
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -426,23 +645,48 @@
                 transform: translateY(-8px) rotate(-45deg);
             }
 
+            .hero {
+                padding: 5rem 5% 3rem;
+            }
+
             .hero h1 {
                 font-size: 2.2rem;
             }
 
             .hero p {
                 font-size: 1.1rem;
+                padding: 0 5%;
+            }
+
+            .hero-buttons {
+                max-width: 100%;
+                padding: 0 5%;
             }
 
             .fixed-contact {
-                bottom: 100px;
-                right: 20px;
+                bottom: 90px;
+                right: 15px;
             }
 
             .contact-btn {
                 width: 55px;
                 height: 55px;
                 font-size: 1.3rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                padding: 0 5%;
+            }
+            
+            .flip-card {
+                height: 360px;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .card-buttons {
+                max-width: 200px;
             }
         }
 
@@ -454,25 +698,55 @@
             .hero h1 {
                 font-size: 1.8rem;
             }
-
-            .services-grid {
-                grid-template-columns: 1fr;
+            
+            .hero-buttons {
+                gap: 1rem;
             }
-
-            .quote-card {
-                padding: 1.5rem;
+            
+            .hero-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1.1rem;
             }
 
             .fixed-contact {
-                bottom: 90px;
-                right: 15px;
+                bottom: 80px;
+                right: 10px;
+            }
+            
+            .contact-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .quote-card {
+                padding: 1.5rem;
+            }
+            
+            .flip-card {
+                height: 340px;
+            }
+            
+            .flip-card-back {
+                padding: 1.5rem;
+            }
+            
+            .flip-card-back h3 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+            
+            .card-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Dinamik Arka Plan -->
-    <div class="dynamic-bg"></div>
+    <!-- Nakliyat temalı arka plan -->
+    <div class="main-bg"></div>
+    <div class="pattern-overlay"></div>
 
     <!-- Header ve Navigasyon -->
     <header>
@@ -499,78 +773,221 @@
     <!-- Hero Bölümü -->
     <section class="hero">
         <h1>Profesyonel Nakliyat Çözümleri</h1>
-        <p>Evden eve, şehirler arası, ofis taşıma ve özel eşya nakliyatında güvenilir ve kaliteli hizmet</p>
-        <a href="#teklif-al" class="btn">Hemen Teklif Al</a>
+        <p>Evden eve, şehirler arası, ofis taşıma ve özel eşya nakliyatında güvenilir ve kaliteli hizmet. 15 yıllık tecrübemizle yanınızdayız.</p>
+        
+        <div class="hero-buttons">
+            <a href="tel:05304858666" class="hero-btn phone">
+                <div class="light-effect"></div>
+                <i class="fas fa-phone"></i> Fiyat Teklifi için Hemen Ara
+            </a>
+            
+            <a href="https://wa.me/905304858666" class="hero-btn whatsapp">
+                <div class="light-effect"></div>
+                <i class="fab fa-whatsapp"></i> WhatsApp Destek Hattı
+            </a>
+        </div>
     </section>
 
-    <!-- Hizmetler Bölümü -->
+    <!-- Hizmetler Bölümü - 3D Kartlar -->
     <section class="services" id="hizmetlerimiz">
         <h2 class="section-title">Nakliyat Hizmetlerimiz</h2>
         
         <div class="services-grid">
             <!-- Evden Eve Nakliyat -->
-            <div class="service-card" id="evden-eve">
-                <div class="service-img">
-                    <img src="images/evden-eve-nakliyat.webp" alt="Evden Eve Nakliyat">
-                </div>
-                <div class="service-info">
-                    <h3>Evden Eve Nakliyat</h3>
-                    <p>Ev eşyalarınızı özenle paketleyip, güvenli bir şekilde yeni adresinize taşıyoruz. Deneyimli ekibimiz ile eşyalarınız güvende.</p>
+            <div class="flip-card" id="evden-eve">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-header">
+                            <img src="images/evden-eve-nakliyat.webp" alt="Evden Eve Nakliyat" class="service-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1623298317882-8e6a7d21e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                            <div class="detail-hint">
+                                <span>Detaylar</span>
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Evden Eve Nakliyat</h3>
+                            <p>Ev eşyalarınızı özenle paketleyip, güvenli bir şekilde yeni adresinize taşıyoruz.</p>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Evden Eve Nakliyat</h3>
+                        <p>Profesyonel ekibimiz ile eşyalarınız güvende. Hemen iletişime geçin!</p>
+                        <div class="card-buttons">
+                            <a href="tel:05304858666" class="card-btn phone">
+                                <div class="light-effect"></div>
+                                <i class="fas fa-phone"></i> Hemen Ara
+                            </a>
+                            <a href="https://wa.me/905304858666" class="card-btn whatsapp">
+                                <div class="light-effect"></div>
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Şehirler Arası Nakliyat -->
-            <div class="service-card" id="sehirler-arasi">
-                <div class="service-img">
-                    <img src="images/sehirler-arasi-nakliyat.webp" alt="Şehirler Arası Nakliyat">
-                </div>
-                <div class="service-info">
-                    <h3>Şehirler Arası Nakliyat</h3>
-                    <p>Şehirler arası nakliyat ihtiyaçlarınız için modern araç filomuz ve profesyonel ekibimiz ile hizmetinizdeyiz.</p>
+            <div class="flip-card" id="sehirler-arasi">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-header">
+                            <img src="images/sehirler-arasi-nakliyat.webp" alt="Şehirler Arası Nakliyat" class="service-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                            <div class="detail-hint">
+                                <span>Detaylar</span>
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Şehirler Arası Nakliyat</h3>
+                            <p>Modern araç filomuz ve profesyonel ekibimiz ile şehirler arası nakliyat hizmeti.</p>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Şehirler Arası Nakliyat</h3>
+                        <p>Türkiye'nin her yerine güvenli taşıma. Hemen iletişime geçin!</p>
+                        <div class="card-buttons">
+                            <a href="tel:05304858666" class="card-btn phone">
+                                <div class="light-effect"></div>
+                                <i class="fas fa-phone"></i> Hemen Ara
+                            </a>
+                            <a href="https://wa.me/905304858666" class="card-btn whatsapp">
+                                <div class="light-effect"></div>
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Asansörlü Taşıma -->
-            <div class="service-card" id="asansorlu">
-                <div class="service-img">
-                    <img src="images/asansorlu-tasima.webp" alt="Asansörlü Taşıma">
-                </div>
-                <div class="service-info">
-                    <h3>Asansörlü Taşıma</h3>
-                    <p>Zorlu merdivenler için özel asansörlü taşıma sistemimiz ile eşyalarınızı hızlı ve güvenli bir şekilde taşıyoruz.</p>
+            <div class="flip-card" id="asansorlu">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-header">
+                            <img src="images/asansorlu-tasima.webp" alt="Asansörlü Taşıma" class="service-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                            <div class="detail-hint">
+                                <span>Detaylar</span>
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Asansörlü Taşıma</h3>
+                            <p>Zorlu merdivenler için özel asansörlü taşıma sistemimiz ile eşyalarınızı güvenle taşıyoruz.</p>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Asansörlü Taşıma</h3>
+                        <p>Zorlu merdivenlerde kolaylık. Hemen iletişime geçin!</p>
+                        <div class="card-buttons">
+                            <a href="tel:05304858666" class="card-btn phone">
+                                <div class="light-effect"></div>
+                                <i class="fas fa-phone"></i> Hemen Ara
+                            </a>
+                            <a href="https://wa.me/905304858666" class="card-btn whatsapp">
+                                <div class="light-effect"></div>
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Ofis Taşıma -->
-            <div class="service-card" id="ofis-tasima">
-                <div class="service-img">
-                    <img src="images/ofis-tasima.webp" alt="Ofis Taşıma">
-                </div>
-                <div class="service-info">
-                    <h3>Ofis Taşıma</h3>
-                    <p>Ofis taşımacılığında özel çözümler sunuyor, iş süreçlerinizin aksamaması için planlı taşıma hizmeti veriyoruz.</p>
+            <div class="flip-card" id="ofis-tasima">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-header">
+                            <img src="images/ofis-tasima.webp" alt="Ofis Taşıma" class="service-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                            <div class="detail-hint">
+                                <span>Detaylar</span>
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Ofis Taşıma</h3>
+                            <p>Ofis taşımacılığında özel çözümler sunuyor, iş süreçlerinizin aksamaması için planlı taşıma.</p>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Ofis Taşıma</h3>
+                        <p>İşiniz aksamadan profesyonel taşıma. Hemen iletişime geçin!</p>
+                        <div class="card-buttons">
+                            <a href="tel:05304858666" class="card-btn phone">
+                                <div class="light-effect"></div>
+                                <i class="fas fa-phone"></i> Hemen Ara
+                            </a>
+                            <a href="https://wa.me/905304858666" class="card-btn whatsapp">
+                                <div class="light-effect"></div>
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Parça Eşya Taşıma -->
-            <div class="service-card" id="parca-esya">
-                <div class="service-img">
-                    <img src="images/parca-esya-tasima.webp" alt="Parça Eşya Taşıma">
-                </div>
-                <div class="service-info">
-                    <h3>Parça Eşya Taşıma</h3>
-                    <p>Tek bir eşyanızı bile güvenle taşıyoruz. Parça eşya taşıma hizmetimiz ile ihtiyacınız olan esneklik ve güveni sunuyoruz.</p>
+            <div class="flip-card" id="parca-esya">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-header">
+                            <img src="images/parca-esya-tasima.webp" alt="Parça Eşya Taşıma" class="service-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                            <div class="detail-hint">
+                                <span>Detaylar</span>
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Parça Eşya Taşıma</h3>
+                            <p>Tek bir eşyanızı bile güvenle taşıyoruz. İhtiyacınız olan esneklik ve güveni sunuyoruz.</p>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Parça Eşya Taşıma</h3>
+                        <p>Tek parça da olsa güvenle taşıyoruz. Hemen iletişime geçin!</p>
+                        <div class="card-buttons">
+                            <a href="tel:05304858666" class="card-btn phone">
+                                <div class="light-effect"></div>
+                                <i class="fas fa-phone"></i> Hemen Ara
+                            </a>
+                            <a href="https://wa.me/905304858666" class="card-btn whatsapp">
+                                <div class="light-effect"></div>
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Ek Hizmet -->
-            <div class="service-card">
-                     <img src="images/depolama.webp" alt="Depolama Hizmeti">
-                    <i class="fas fa-boxes" style="font-size: 4rem;"></i>
-                </div>
-                <div class="service-info">
-                    <h3>Depolama Hizmeti</h3>
-                    <p>Eşyalarınızı güvenli ve iklim kontrollü depolama alanlarımızda saklayabilir, ihtiyacınız olduğunda teslim alabilirsiniz.</p>
+            <!-- Depolama Hizmeti -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-header">
+                            <img src="images/depolama.webp" alt="Depolama Hizmeti" class="service-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                            <div class="detail-hint">
+                                <span>Detaylar</span>
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Depolama Hizmeti</h3>
+                            <p>Eşyalarınızı güvenli ve iklim kontrollü depolama alanlarımızda saklayabilirsiniz.</p>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Depolama Hizmeti</h3>
+                        <p>Eşyalarınız güvende, rahatınız yerinde. Hemen iletişime geçin!</p>
+                        <div class="card-buttons">
+                            <a href="tel:05304858666" class="card-btn phone">
+                                <div class="light-effect"></div>
+                                <i class="fas fa-phone"></i> Hemen Ara
+                            </a>
+                            <a href="https://wa.me/905304858666" class="card-btn whatsapp">
+                                <div class="light-effect"></div>
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -581,12 +998,15 @@
         <div class="quote-card">
             <h3>Ücretsiz Nakliyat Teklifi Alın</h3>
             <p>Nakliyat ihtiyaçlarınız için en uygun teklifi almak için hemen bize ulaşın. Uzman ekibimiz sizin için en iyi çözümü sunacaktır.</p>
-            <a href="tel:05304858666" class="btn">
-                <i class="fas fa-phone"></i> Hemen Ara: 0530 485 86 66
-            </a>
-            <div style="margin-top: 1.5rem;">
-                <p>Veya WhatsApp üzerinden iletişime geçin:</p>
-                <a href="https://wa.me/905304858666" class="btn" style="background: linear-gradient(to right, #25D366, #128C7E); margin-top: 0.5rem;">
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+                <a href="tel:05304858666" class="hero-btn phone" style="width: 100%;">
+                    <div class="light-effect"></div>
+                    <i class="fas fa-phone"></i> Hemen Ara: 0530 485 86 66
+                </a>
+                
+                <a href="https://wa.me/905304858666" class="hero-btn whatsapp" style="width: 100%;">
+                    <div class="light-effect"></div>
                     <i class="fab fa-whatsapp"></i> WhatsApp'tan Yazın
                 </a>
             </div>
@@ -626,13 +1046,15 @@
 
     <!-- Sabit İletişim Butonları -->
     <div class="fixed-contact">
-        <a href="https://wa.me/905304858666" class="contact-btn whatsapp">
-            <i class="fab fa-whatsapp"></i>
+        <a href="tel:05304858666" class="contact-btn phone">
+            <div class="light-effect"></div>
+            <i class="fas fa-phone"></i>
             <div class="pulse-ring"></div>
         </a>
         
-        <a href="tel:05304858666" class="contact-btn phone">
-            <i class="fas fa-phone"></i>
+        <a href="https://wa.me/905304858666" class="contact-btn whatsapp">
+            <div class="light-effect"></div>
+            <i class="fab fa-whatsapp"></i>
             <div class="pulse-ring"></div>
         </a>
     </div>
@@ -655,17 +1077,43 @@
             });
         });
         
-        // Sayfa yüklendiğinde görseller için fallback
-        document.addEventListener('DOMContentLoaded', function() {
-            // Görseller yüklenemediğinde fallback arkaplan rengi
-            const serviceImages = document.querySelectorAll('.service-img img');
-            serviceImages.forEach(img => {
-                img.onerror = function() {
-                    this.style.display = 'none';
-                    this.parentElement.style.background = 'linear-gradient(to right, var(--primary), var(--secondary))';
-                    this.parentElement.innerHTML = '<i class="fas fa-truck-moving" style="font-size: 4rem; color: white;"></i>';
-                };
+        // Kartlara tıklanınca da dönebilmesi için (mobil için)
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    // Mobilde tıklanınca da dönsün
+                    if (!e.target.closest('.detail-hint') && !e.target.closest('.card-btn')) {
+                        this.querySelector('.flip-card-inner').classList.toggle('flipped');
+                    }
+                }
             });
+        });
+        
+        // Detaylar butonuna tıklanınca kartı çevir
+        document.querySelectorAll('.detail-hint').forEach(hint => {
+            hint.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const cardInner = this.closest('.flip-card').querySelector('.flip-card-inner');
+                cardInner.classList.toggle('flipped');
+            });
+        });
+        
+        // Kart butonlarına tıklanınca kart çevrilmesin
+        document.querySelectorAll('.card-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        // Mobilde görseller için fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            // Depolama görseli için özel kontrol
+            const depolamaImg = document.querySelector('img[src="images/depolama.webp"]');
+            if (depolamaImg) {
+                depolamaImg.onerror = function() {
+                    this.src = 'https://images.unsplash.com/photo-1553413077-190dd305871c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                };
+            }
         });
     </script>
 </body>
