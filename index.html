@@ -166,7 +166,7 @@
             color: var(--secondary);
         }
 
-        /* Ana Butonlar */
+        /* Ana Butonlar - IŞIK EFEKTLİ */
         .hero-buttons {
             display: flex;
             flex-direction: column;
@@ -190,8 +190,10 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
+        /* Sürekli hareket eden ışık efekti */
         .hero-btn::before {
             content: '';
             position: absolute;
@@ -199,12 +201,60 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.6), 
+                rgba(255, 255, 255, 0.8), 
+                rgba(255, 255, 255, 0.6), 
+                transparent);
+            animation: lightSweep 3s infinite ease-in-out;
+            z-index: -1;
         }
 
-        .hero-btn:hover::before {
-            left: 100%;
+        /* Her buton için farklı animasyon gecikmesi */
+        .hero-btn.phone::before {
+            animation-delay: 0.5s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.5), 
+                rgba(255, 255, 255, 0.7), 
+                rgba(255, 255, 255, 0.5), 
+                transparent);
+        }
+
+        .hero-btn.whatsapp::before {
+            animation-delay: 1s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.5), 
+                rgba(255, 255, 255, 0.7), 
+                rgba(255, 255, 255, 0.5), 
+                transparent);
+        }
+
+        @keyframes lightSweep {
+            0% {
+                left: -100%;
+            }
+            20% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Buton hover efekti */
+        .hero-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            z-index: -2;
+            border-radius: 12px;
         }
 
         .hero-btn.phone {
@@ -257,7 +307,7 @@
             border-radius: 15px;
             width: 100%;
             min-height: 400px;
-            cursor: pointer; /* Tıklanabilir olduğunu göster */
+            cursor: pointer;
         }
 
         .flip-card-inner {
@@ -271,7 +321,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* HOVER KALDIRILDI - SADECE .flipped CLASS'I İLE DÖNECEK */
         .flip-card-inner.flipped {
             transform: rotateY(180deg);
         }
@@ -333,7 +382,7 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             z-index: 2;
             cursor: pointer;
-            pointer-events: auto; /* Tıklanabilir olduğundan emin ol */
+            pointer-events: auto;
         }
 
         .detail-hint i {
@@ -363,7 +412,7 @@
             font-size: 0.95rem;
         }
 
-        /* Kart Arka Yüzü - Butonlar */
+        /* Kart Arka Yüzü - Butonlar (IŞIK EFEKTLİ) */
         .flip-card-back h3 {
             margin-bottom: 1.5rem;
             font-size: 1.6rem;
@@ -400,8 +449,10 @@
             width: 100%;
             border: none;
             cursor: pointer;
+            z-index: 1;
         }
 
+        /* Kart butonları için ışık efekti */
         .card-btn::before {
             content: '';
             position: absolute;
@@ -409,12 +460,49 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.5), 
+                rgba(255, 255, 255, 0.7), 
+                rgba(255, 255, 255, 0.5), 
+                transparent);
+            animation: buttonLight 4s infinite ease-in-out;
+            z-index: -1;
         }
 
-        .card-btn:hover::before {
-            left: 100%;
+        /* Her buton için farklı ritim */
+        .card-btn.phone::before {
+            animation: buttonLight 3.5s infinite ease-in-out;
+            animation-delay: 0.3s;
+        }
+
+        .card-btn.whatsapp::before {
+            animation: buttonLight 4.2s infinite ease-in-out;
+            animation-delay: 0.7s;
+        }
+
+        @keyframes buttonLight {
+            0% {
+                left: -100%;
+            }
+            15% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .card-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            z-index: -2;
+            border-radius: 50px;
         }
 
         .card-btn.phone {
@@ -467,6 +555,19 @@
             color: var(--gray);
         }
 
+        /* Sabit butonlar için ışık efekti */
+        .quote-card .hero-btn::before {
+            animation: lightSweep 3.5s infinite ease-in-out;
+        }
+
+        .quote-card .hero-btn.phone::before {
+            animation-delay: 0.8s;
+        }
+
+        .quote-card .hero-btn.whatsapp::before {
+            animation-delay: 1.3s;
+        }
+
         /* Footer */
         footer {
             background-color: var(--secondary);
@@ -512,7 +613,7 @@
             font-size: 0.9rem;
         }
 
-        /* Sabit İletişim Butonları */
+        /* Sabit İletişim Butonları - IŞIK EFEKTLİ */
         .fixed-contact {
             position: fixed;
             bottom: 100px;
@@ -537,6 +638,37 @@
             transition: transform 0.3s;
             position: relative;
             overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Sabit butonlar için ışık efekti */
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                rgba(255, 255, 255, 0.6), 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            animation: fixedButtonLight 5s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes fixedButtonLight {
+            0% {
+                left: -100%;
+            }
+            10% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
 
         .contact-btn.whatsapp {
@@ -547,8 +679,31 @@
             background: linear-gradient(to right, var(--primary), var(--secondary));
         }
 
+        /* Sabit butonlar için farklı ritimler */
+        .contact-btn.phone::before {
+            animation: fixedButtonLight 4s infinite ease-in-out;
+            animation-delay: 1s;
+        }
+
+        .contact-btn.whatsapp::before {
+            animation: fixedButtonLight 4.5s infinite ease-in-out;
+            animation-delay: 2s;
+        }
+
         .contact-btn:hover {
             transform: scale(1.1);
+        }
+
+        .contact-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            z-index: -2;
+            border-radius: 50%;
         }
 
         /* Işık Dalgası Efekti */
@@ -560,7 +715,7 @@
             border-radius: 50%;
             background: inherit;
             animation: pulse 2s infinite;
-            z-index: -1;
+            z-index: -3;
         }
 
         @keyframes pulse {
@@ -572,24 +727,6 @@
                 transform: scale(2);
                 opacity: 0;
             }
-        }
-
-        /* Beyaz ışık efekti için */
-        .light-effect {
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .hero-btn:hover .light-effect,
-        .contact-btn:hover .light-effect,
-        .card-btn:hover .light-effect {
-            opacity: 1;
         }
 
         /* MOBİL DÜZELTMELERİ */
@@ -620,6 +757,15 @@
             
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Tablet için ışık animasyonlarını biraz yavaşlat */
+            .hero-btn::before {
+                animation-duration: 4s;
+            }
+            
+            .card-btn::before {
+                animation-duration: 5s;
             }
         }
 
@@ -725,6 +871,13 @@
             
             .flip-card-back {
                 padding: 1.5rem;
+            }
+            
+            /* Mobil için ışık animasyonlarını optimize et */
+            .hero-btn::before,
+            .card-btn::before,
+            .contact-btn::before {
+                animation-duration: 5s;
             }
         }
 
@@ -840,12 +993,10 @@
         
         <div class="hero-buttons">
             <a href="tel:05304858666" class="hero-btn phone">
-                <div class="light-effect"></div>
                 <i class="fas fa-phone"></i> Fiyat Teklifi için Hemen Ara
             </a>
             
             <a href="https://wa.me/905304858666" class="hero-btn whatsapp">
-                <div class="light-effect"></div>
                 <i class="fab fa-whatsapp"></i> WhatsApp Destek Hattı
             </a>
         </div>
@@ -877,11 +1028,9 @@
                         <p>Profesyonel ekibimiz ile eşyalarınız güvende. Hemen iletişime geçin!</p>
                         <div class="card-buttons">
                             <a href="tel:05304858666" class="card-btn phone">
-                                <div class="light-effect"></div>
                                 <i class="fas fa-phone"></i> Hemen Ara
                             </a>
                             <a href="https://wa.me/905304858666" class="card-btn whatsapp">
-                                <div class="light-effect"></div>
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -910,11 +1059,9 @@
                         <p>Türkiye'nin her yerine güvenli taşıma. Hemen iletişime geçin!</p>
                         <div class="card-buttons">
                             <a href="tel:05304858666" class="card-btn phone">
-                                <div class="light-effect"></div>
                                 <i class="fas fa-phone"></i> Hemen Ara
                             </a>
                             <a href="https://wa.me/905304858666" class="card-btn whatsapp">
-                                <div class="light-effect"></div>
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -943,11 +1090,9 @@
                         <p>Zorlu merdivenlerde kolaylık. Hemen iletişime geçin!</p>
                         <div class="card-buttons">
                             <a href="tel:05304858666" class="card-btn phone">
-                                <div class="light-effect"></div>
                                 <i class="fas fa-phone"></i> Hemen Ara
                             </a>
                             <a href="https://wa.me/905304858666" class="card-btn whatsapp">
-                                <div class="light-effect"></div>
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -976,11 +1121,9 @@
                         <p>İşiniz aksamadan profesyonel taşıma. Hemen iletişime geçin!</p>
                         <div class="card-buttons">
                             <a href="tel:05304858666" class="card-btn phone">
-                                <div class="light-effect"></div>
                                 <i class="fas fa-phone"></i> Hemen Ara
                             </a>
                             <a href="https://wa.me/905304858666" class="card-btn whatsapp">
-                                <div class="light-effect"></div>
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -1009,11 +1152,9 @@
                         <p>Tek parça da olsa güvenle taşıyoruz. Hemen iletişime geçin!</p>
                         <div class="card-buttons">
                             <a href="tel:05304858666" class="card-btn phone">
-                                <div class="light-effect"></div>
                                 <i class="fas fa-phone"></i> Hemen Ara
                             </a>
                             <a href="https://wa.me/905304858666" class="card-btn whatsapp">
-                                <div class="light-effect"></div>
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -1042,11 +1183,9 @@
                         <p>Eşyalarınız güvende, rahatınız yerinde. Hemen iletişime geçin!</p>
                         <div class="card-buttons">
                             <a href="tel:05304858666" class="card-btn phone">
-                                <div class="light-effect"></div>
                                 <i class="fas fa-phone"></i> Hemen Ara
                             </a>
                             <a href="https://wa.me/905304858666" class="card-btn whatsapp">
-                                <div class="light-effect"></div>
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
@@ -1064,12 +1203,10 @@
             
             <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
                 <a href="tel:05304858666" class="hero-btn phone" style="width: 100%;">
-                    <div class="light-effect"></div>
                     <i class="fas fa-phone"></i> Hemen Ara: 0530 485 86 66
                 </a>
                 
                 <a href="https://wa.me/905304858666" class="hero-btn whatsapp" style="width: 100%;">
-                    <div class="light-effect"></div>
                     <i class="fab fa-whatsapp"></i> WhatsApp'tan Yazın
                 </a>
             </div>
@@ -1110,13 +1247,11 @@
     <!-- Sabit İletişim Butonları -->
     <div class="fixed-contact">
         <a href="tel:05304858666" class="contact-btn phone">
-            <div class="light-effect"></div>
             <i class="fas fa-phone"></i>
             <div class="pulse-ring"></div>
         </a>
         
         <a href="https://wa.me/905304858666" class="contact-btn whatsapp">
-            <div class="light-effect"></div>
             <i class="fab fa-whatsapp"></i>
             <div class="pulse-ring"></div>
         </a>
@@ -1141,25 +1276,21 @@
         });
         
         // KART ÇEVİRME SİSTEMİ - HER TIKLAMADA 1 KERE DÖNSÜN
-        let activeCard = null; // Aktif olan kartı takip et
+        let activeCard = null;
         
         document.querySelectorAll('.flip-card').forEach(card => {
             const cardInner = card.querySelector('.flip-card-inner');
             
             // Kartın kendisine tıklanınca
             card.addEventListener('click', function(e) {
-                // Eğer butonlara tıklanmadıysa
                 if (!e.target.closest('.card-btn') && !e.target.closest('.detail-hint')) {
-                    // Eğer bu kart zaten aktifse, kapat
                     if (card === activeCard) {
                         cardInner.classList.remove('flipped');
                         activeCard = null;
                     } else {
-                        // Diğer kartları kapat
                         if (activeCard) {
                             activeCard.querySelector('.flip-card-inner').classList.remove('flipped');
                         }
-                        // Bu kartı aç
                         cardInner.classList.add('flipped');
                         activeCard = card;
                     }
@@ -1172,16 +1303,13 @@
             if (detailHint) {
                 detailHint.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    // Eğer bu kart zaten aktifse, kapat
                     if (card === activeCard) {
                         cardInner.classList.remove('flipped');
                         activeCard = null;
                     } else {
-                        // Diğer kartları kapat
                         if (activeCard) {
                             activeCard.querySelector('.flip-card-inner').classList.remove('flipped');
                         }
-                        // Bu kartı aç
                         cardInner.classList.add('flipped');
                         activeCard = card;
                     }
@@ -1193,7 +1321,6 @@
             cardButtons.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    // Kartı kapat
                     cardInner.classList.remove('flipped');
                     if (card === activeCard) {
                         activeCard = null;
@@ -1215,9 +1342,19 @@
             const images = document.querySelectorAll('.service-img');
             images.forEach(img => {
                 img.onerror = function() {
-                    console.log('Görsel yüklenemedi, fallback kullanılıyor: ' + this.src);
+                    console.log('Görsel yüklenemedi, fallback kullanılıyor');
                 };
             });
+            
+            // Işık efektlerini rastgele başlatma
+            setTimeout(() => {
+                const buttons = document.querySelectorAll('.hero-btn, .card-btn, .contact-btn');
+                buttons.forEach(btn => {
+                    // Her buton için biraz farklı animasyon gecikmesi
+                    const delay = Math.random() * 2;
+                    btn.style.animationDelay = `${delay}s`;
+                });
+            }, 500);
         });
     </script>
 </body>
