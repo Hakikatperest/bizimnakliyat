@@ -249,14 +249,15 @@
             width: 100%;
         }
 
-        /* 3D Kart Stilleri - MOBİL UYUMLU */
+        /* 3D Kart Stilleri - SADECE TIKLAMA İLE DÖNECEK */
         .flip-card {
             background-color: transparent;
             perspective: 1000px;
             height: 400px;
             border-radius: 15px;
             width: 100%;
-            min-height: 400px; /* Mobilde minimum yükseklik */
+            min-height: 400px;
+            cursor: pointer; /* Tıklanabilir olduğunu göster */
         }
 
         .flip-card-inner {
@@ -270,8 +271,8 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .flip-card:hover .flip-card-inner,
-        .flip-card.active .flip-card-inner {
+        /* HOVER KALDIRILDI - SADECE .flipped CLASS'I İLE DÖNECEK */
+        .flip-card-inner.flipped {
             transform: rotateY(180deg);
         }
 
@@ -332,14 +333,14 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             z-index: 2;
             cursor: pointer;
+            pointer-events: auto; /* Tıklanabilir olduğundan emin ol */
         }
 
         .detail-hint i {
-            transition: transform 0.5s;
+            transition: transform 0.8s;
         }
 
-        .flip-card:hover .detail-hint i,
-        .flip-card.active .detail-hint i {
+        .flip-card-inner.flipped .detail-hint i {
             transform: rotate(180deg);
         }
 
@@ -591,7 +592,7 @@
             opacity: 1;
         }
 
-        /* MOBİL DÜZELTMELERİ - ÇOK ÖNEMLİ */
+        /* MOBİL DÜZELTMELERİ */
         @media (max-width: 1200px) {
             .navbar, .hero, .services, .quote-section, .footer-content {
                 padding-left: 3%;
@@ -618,7 +619,7 @@
             }
             
             .services-grid {
-                grid-template-columns: repeat(2, 1fr); /* Tablette 2 kolon */
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -696,9 +697,8 @@
                 font-size: 1.3rem;
             }
             
-            /* MOBİLDE KART DÜZELTMESİ - ÇOK ÖNEMLİ */
             .services-grid {
-                grid-template-columns: 1fr; /* Mobilde tek kolon */
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
                 padding: 0;
             }
@@ -708,7 +708,7 @@
                 min-height: 350px;
                 max-width: 100%;
                 margin: 0 auto;
-                perspective: 800px; /* Mobilde daha düşük perspective */
+                perspective: 800px;
             }
             
             .card-buttons {
@@ -716,7 +716,7 @@
             }
             
             .card-header {
-                height: 55%; /* Mobilde biraz daha küçük resim */
+                height: 55%;
             }
             
             .card-content {
@@ -725,11 +725,6 @@
             
             .flip-card-back {
                 padding: 1.5rem;
-            }
-            
-            /* Mobilde kartın tıklanabilir alanını artır */
-            .flip-card {
-                cursor: pointer;
             }
         }
 
@@ -791,7 +786,6 @@
             }
         }
         
-        /* Küçük mobil cihazlar için ek düzenleme */
         @media (max-width: 360px) {
             .flip-card {
                 height: 300px;
@@ -1146,73 +1140,82 @@
             });
         });
         
-        // MOBİLDE KART ÇEVİRME - DÜZELTİLMİŞ
+        // KART ÇEVİRME SİSTEMİ - HER TIKLAMADA 1 KERE DÖNSÜN
+        let activeCard = null; // Aktif olan kartı takip et
+        
         document.querySelectorAll('.flip-card').forEach(card => {
+            const cardInner = card.querySelector('.flip-card-inner');
+            
+            // Kartın kendisine tıklanınca
+            card.addEventListener('click', function(e) {
+                // Eğer butonlara tıklanmadıysa
+                if (!e.target.closest('.card-btn') && !e.target.closest('.detail-hint')) {
+                    // Eğer bu kart zaten aktifse, kapat
+                    if (card === activeCard) {
+                        cardInner.classList.remove('flipped');
+                        activeCard = null;
+                    } else {
+                        // Diğer kartları kapat
+                        if (activeCard) {
+                            activeCard.querySelector('.flip-card-inner').classList.remove('flipped');
+                        }
+                        // Bu kartı aç
+                        cardInner.classList.add('flipped');
+                        activeCard = card;
+                    }
+                    e.stopPropagation();
+                }
+            });
+            
             // Detaylar butonuna tıklanınca
             const detailHint = card.querySelector('.detail-hint');
             if (detailHint) {
                 detailHint.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    card.classList.toggle('active');
-                });
-            }
-            
-            // Kartın kendisine tıklanınca (mobil için)
-            if (window.innerWidth <= 768) {
-                card.addEventListener('click', function(e) {
-                    // Eğer butona tıklanmadıysa kartı çevir
-                    if (!e.target.closest('.card-btn') && !e.target.closest('.detail-hint')) {
-                        this.classList.toggle('active');
+                    // Eğer bu kart zaten aktifse, kapat
+                    if (card === activeCard) {
+                        cardInner.classList.remove('flipped');
+                        activeCard = null;
+                    } else {
+                        // Diğer kartları kapat
+                        if (activeCard) {
+                            activeCard.querySelector('.flip-card-inner').classList.remove('flipped');
+                        }
+                        // Bu kartı aç
+                        cardInner.classList.add('flipped');
+                        activeCard = card;
                     }
                 });
             }
-        });
-        
-        // Kart butonlarına tıklanınca kart çevrilmesin
-        document.querySelectorAll('.card-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Butona tıklanınca kartı kapat (mobilde)
-                if (window.innerWidth <= 768) {
-                    const card = this.closest('.flip-card');
-                    if (card) {
-                        card.classList.remove('active');
-                    }
-                }
-            });
-        });
-        
-        // Pencere boyutu değiştiğinde mobil kontrolü
-        window.addEventListener('resize', function() {
-            const isMobile = window.innerWidth <= 768;
             
-            document.querySelectorAll('.flip-card').forEach(card => {
-                if (isMobile) {
-                    // Mobilde hover efektini kaldır, tıklama ekle
-                    card.style.cursor = 'pointer';
-                } else {
-                    // Masaüstünde hover efektini geri getir
-                    card.style.cursor = 'default';
-                    card.classList.remove('active');
-                }
+            // Kart butonlarına tıklanınca kartı kapat
+            const cardButtons = card.querySelectorAll('.card-btn');
+            cardButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Kartı kapat
+                    cardInner.classList.remove('flipped');
+                    if (card === activeCard) {
+                        activeCard = null;
+                    }
+                });
             });
         });
         
-        // Sayfa yüklendiğinde mobil kontrolü yap
+        // Sayfanın başka yerine tıklanınca açık kartı kapat
+        document.addEventListener('click', function(e) {
+            if (activeCard && !e.target.closest('.flip-card')) {
+                activeCard.querySelector('.flip-card-inner').classList.remove('flipped');
+                activeCard = null;
+            }
+        });
+        
+        // Görsel yükleme hataları için fallback
         document.addEventListener('DOMContentLoaded', function() {
-            const isMobile = window.innerWidth <= 768;
-            
-            if (isMobile) {
-                document.querySelectorAll('.flip-card').forEach(card => {
-                    card.style.cursor = 'pointer';
-                });
-            }
-            
-            // Görsel yükleme hataları için fallback
             const images = document.querySelectorAll('.service-img');
             images.forEach(img => {
                 img.onerror = function() {
-                    console.log('Görsel yüklenemedi: ' + this.src);
+                    console.log('Görsel yüklenemedi, fallback kullanılıyor: ' + this.src);
                 };
             });
         });
