@@ -1230,6 +1230,35 @@
                 font-size: 1.8rem;
             }
         }
+        .ads-simple-box {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.ads-simple-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.08);
+    color: #ddd;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.ads-simple-link:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.ads-simple-link i {
+    font-size: 0.9rem;
+}
 
         @media (max-width: 480px) {
             .hero {
@@ -1807,7 +1836,15 @@
         <div class="copyright">
             &copy; 2023 Bizim Nakliyat. Tüm hakları saklıdır.
         </div>
-         <p><i class="fas fa-ad"></i> <a href="https://www.adsreklamvermek.com" title="Google Reklam Vermek İstiyorum" target="_blank" rel="noopener">Google Reklam Vermek İstiyorum</a></p>
+        <div class="ads-simple-box">
+    <a href="https://www.adsreklamvermek.com" 
+       target="_blank" 
+       rel="noopener" 
+       class="ads-simple-link">
+        <i class="fas fa-chart-line"></i>
+        <span>Google Reklam Vermek İstiyorum</span>
+    </a>
+</div>
     </footer>
 
     <!-- Sabit İletişim Butonları -->
